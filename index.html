@@ -296,15 +296,180 @@ html, body {
 .rain-spark { position:fixed; z-index:53; pointer-events:none; font-size:16px; animation:rainFall linear forwards; }
 @keyframes rainFall { from{transform:translateY(-20px) rotate(0);opacity:1} to{transform:translateY(110vh) rotate(360deg);opacity:0} }
 
-/* === RESPONSIVE (original) === */
-@media (max-width:400px) {
-  .envelope-scene { width:300px; height:215px; }
-  .env-fl { border-bottom-width:108px; border-right-width:150px; }
-  .env-fr { border-bottom-width:108px; border-left-width:150px; }
-  .env-fb { border-left-width:150px; border-right-width:150px; border-bottom-width:108px; }
+/* ═══════════════════════════════════════════════════
+   FULLY RESPONSIVE — ALL SCREEN SIZES
+   Tiny phones → Large desktops → Landscape tablets
+   ═══════════════════════════════════════════════════ */
+
+/* ── Fluid moon ── */
+.moon { width: clamp(55px,9vw,110px); height: clamp(55px,9vw,110px); }
+
+/* ── Fluid bismillah ── */
+.bismillah-text { font-size: clamp(14px,3.5vw,24px); }
+
+/* ── Fluid name input ── */
+.name-label { font-size: clamp(10px,2.5vw,13px); }
+#recipientName { width: clamp(200px,70vw,270px); font-size: clamp(13px,3vw,16px); padding: clamp(8px,2vw,12px) 40px; }
+
+/* ── Fluid envelope — uses CSS custom props set by JS ── */
+.envelope-scene {
+  width:  clamp(260px, 88vw, 380px);
+  height: clamp(185px, 62vw, 265px);
+}
+
+/* ── Fluid letter card ── */
+.letter-card {
+  left:   clamp(14px, 4vw, 24px);
+  right:  clamp(14px, 4vw, 24px);
+  top:    clamp(10px, 3vw, 16px);
+  height: calc(100% - clamp(10px,3vw,16px));
+  padding: clamp(7px,1.8vw,11px) clamp(12px,3vw,18px);
+}
+.letter-arabesque { font-size: clamp(11px,2.5vw,16px); }
+.letter-title      { font-size: clamp(9px, 2.2vw,13px); }
+.letter-divider    { font-size: clamp(7px, 1.8vw,11px); }
+.letter-msg        { font-size: clamp(8.5px,2vw,11px); line-height:1.6; }
+.sig-from          { font-size: clamp(6px,1.5vw,8px); }
+.sig-name          { font-size: clamp(13px,3.5vw,20px); }
+
+/* ── Fluid envelope folds ── */
+/* These must match half the envelope width */
+.env-fl { border-right-width:  calc(clamp(260px,88vw,380px) / 2); border-bottom-width: clamp(90px,30vw,135px); }
+.env-fr { border-left-width:   calc(clamp(260px,88vw,380px) / 2); border-bottom-width: clamp(90px,30vw,135px); }
+.env-fb { border-left-width:   calc(clamp(260px,88vw,380px) / 2); border-right-width:  calc(clamp(260px,88vw,380px) / 2); border-bottom-width: clamp(90px,30vw,135px); }
+.env-seam { height: clamp(90px,30vw,135px); }
+
+/* ── Fluid flap ── */
+.env-flap-wrap   { height: clamp(100px,28vw,155px); }
+.env-flap-front,
+.env-flap-back   { height: clamp(100px,28vw,155px); clip-path: polygon(0 0,100% 0,50% 73%); }
+.env-flap-svg    { height: clamp(100px,28vw,155px); }
+
+/* ── Fluid wax seal ── */
+.wax-seal { width: clamp(46px,10vw,70px); height: clamp(46px,10vw,70px); bottom: clamp(22px,6vw,38px); }
+
+/* ── Fluid sender label ── */
+.env-sender { font-size: clamp(7px,1.6vw,10px); letter-spacing: clamp(2px,0.8vw,4px); bottom: clamp(8px,2vw,15px); }
+
+/* ── Open-state lift — scales with envelope height ── */
+.envelope-scene.open .letter-card { transform: translateY(calc(-1 * clamp(155px,52vw,195px))); }
+
+/* ── Click hint ── */
+.click-hint { font-size: clamp(10px,2.2vw,13px); }
+
+/* ════════════ BREAKPOINTS ════════════ */
+
+/* Extra-small phones (≤320px) */
+@media (max-width:320px) {
+  #scene { gap: 0; }
+  .name-section { margin-bottom: 14px; }
+  .envelope-scene { width: 260px; height: 185px; }
+  .env-fl { border-right-width:130px; border-bottom-width:90px; }
+  .env-fr { border-left-width:130px;  border-bottom-width:90px; }
+  .env-fb { border-left-width:130px; border-right-width:130px; border-bottom-width:90px; }
+  .env-seam { height:90px; }
+  .env-flap-wrap,.env-flap-front,.env-flap-back { height:100px; }
+  .wax-seal { width:44px; height:44px; bottom:20px; }
+  .letter-card { left:13px; right:13px; top:10px; height:175px; padding:6px 10px; }
+  .sig-name { font-size:12px; }
+  .envelope-scene.open .letter-card { transform:translateY(-150px); }
+  .bismillah-text { font-size:13px; }
+  .moon { width:50px; height:50px; }
+}
+
+/* Small phones (321–390px) */
+@media (min-width:321px) and (max-width:390px) {
+  .name-section { margin-bottom:16px; }
+  .envelope-scene { width:300px; height:212px; }
+  .env-fl { border-right-width:150px; border-bottom-width:105px; }
+  .env-fr { border-left-width:150px;  border-bottom-width:105px; }
+  .env-fb { border-left-width:150px; border-right-width:150px; border-bottom-width:105px; }
+  .env-seam { height:105px; }
+  .env-flap-wrap,.env-flap-front,.env-flap-back { height:116px; }
+  .wax-seal { width:52px; height:52px; bottom:26px; }
+  .letter-card { left:16px; right:16px; top:12px; height:188px; padding:7px 13px; }
+  .sig-name { font-size:14px; }
+  .envelope-scene.open .letter-card { transform:translateY(-162px); }
+}
+
+/* Medium phones (391–480px) */
+@media (min-width:391px) and (max-width:480px) {
+  .envelope-scene { width:330px; height:232px; }
+  .env-fl { border-right-width:165px; border-bottom-width:115px; }
+  .env-fr { border-left-width:165px;  border-bottom-width:115px; }
+  .env-fb { border-left-width:165px; border-right-width:165px; border-bottom-width:115px; }
+  .env-seam { height:115px; }
   .env-flap-wrap,.env-flap-front,.env-flap-back { height:128px; }
-  .env-flap-front,.env-flap-back { clip-path:polygon(0 0,100% 0,50% 73%); }
-  .letter-card { left:18px; right:18px; height:190px; }
+  .wax-seal { width:58px; height:58px; bottom:29px; }
+  .letter-card { left:18px; right:18px; top:13px; height:196px; }
+  .envelope-scene.open .letter-card { transform:translateY(-170px); }
+}
+
+/* Tablets portrait (481–768px) */
+@media (min-width:481px) and (max-width:768px) {
+  .envelope-scene { width:360px; height:255px; }
+  .env-fl { border-right-width:180px; border-bottom-width:130px; }
+  .env-fr { border-left-width:180px;  border-bottom-width:130px; }
+  .env-fb { border-left-width:180px; border-right-width:180px; border-bottom-width:130px; }
+  .env-seam { height:130px; }
+  .env-flap-wrap,.env-flap-front,.env-flap-back { height:150px; }
+  .wax-seal { width:66px; height:66px; bottom:34px; }
+  .letter-card { left:22px; right:22px; top:15px; height:205px; }
+  .envelope-scene.open .letter-card { transform:translateY(-185px); }
+}
+
+/* Tablets landscape & small desktops (769–1024px) */
+@media (min-width:769px) and (max-width:1024px) {
+  .envelope-scene { width:380px; height:268px; }
+  .env-fl { border-right-width:190px; border-bottom-width:135px; }
+  .env-fr { border-left-width:190px;  border-bottom-width:135px; }
+  .env-fb { border-left-width:190px; border-right-width:190px; border-bottom-width:135px; }
+  .env-seam { height:135px; }
+  .env-flap-wrap,.env-flap-front,.env-flap-back { height:155px; }
+  .wax-seal { width:70px; height:70px; bottom:36px; }
+  .letter-card { left:24px; right:24px; top:16px; height:212px; }
+  .letter-title { font-size:14px; }
+  .letter-msg   { font-size:11.5px; }
+  .sig-name     { font-size:20px; }
+  .envelope-scene.open .letter-card { transform:translateY(-190px); }
+}
+
+/* Large desktops (1025px+) */
+@media (min-width:1025px) {
+  .envelope-scene { width:400px; height:280px; }
+  .env-fl { border-right-width:200px; border-bottom-width:140px; }
+  .env-fr { border-left-width:200px;  border-bottom-width:140px; }
+  .env-fb { border-left-width:200px; border-right-width:200px; border-bottom-width:140px; }
+  .env-seam { height:140px; }
+  .env-flap-wrap,.env-flap-front,.env-flap-back { height:160px; }
+  .wax-seal { width:74px; height:74px; bottom:38px; }
+  .letter-card { left:26px; right:26px; top:18px; height:220px; padding:11px 20px; }
+  .letter-arabesque { font-size:18px; }
+  .letter-title { font-size:14.5px; }
+  .letter-msg   { font-size:12px; }
+  .sig-name     { font-size:22px; }
+  .name-section { margin-bottom:30px; }
+  .envelope-scene.open .letter-card { transform:translateY(-198px); }
+}
+
+/* Landscape orientation on phones */
+@media (max-height:500px) and (orientation:landscape) {
+  #scene { flex-direction: row; align-items: center; justify-content: center; gap: 30px; padding: 10px; }
+  .name-section { margin-bottom: 0; }
+  .bismillah-text { font-size: 14px; top: 2vh; }
+  .moon { width: 50px; height: 50px; top: 2vh; }
+  .envelope-scene { width: clamp(240px,50vw,320px); height: clamp(170px,36vw,225px); }
+  .env-fl { border-right-width: clamp(120px,25vw,160px); border-bottom-width: clamp(85px,18vw,112px); }
+  .env-fr { border-left-width:  clamp(120px,25vw,160px); border-bottom-width: clamp(85px,18vw,112px); }
+  .env-fb { border-left-width: clamp(120px,25vw,160px); border-right-width: clamp(120px,25vw,160px); border-bottom-width: clamp(85px,18vw,112px); }
+  .env-seam { height: clamp(85px,18vw,112px); }
+  .env-flap-wrap,.env-flap-front,.env-flap-back { height: clamp(95px,20vw,125px); }
+  .wax-seal { width:44px; height:44px; bottom:20px; }
+  .letter-card { left:14px; right:14px; top:10px; height:calc(100% - 10px); padding:6px 12px; }
+  .letter-msg { font-size:9px; line-height:1.5; }
+  .sig-name { font-size:13px; }
+  .envelope-scene.open .letter-card { transform: translateY(clamp(-145px,-30vw,-115px)); }
+  #recipientName { width: clamp(160px,30vw,220px); }
 }
 </style>
 </head>
